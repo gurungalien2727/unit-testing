@@ -5,7 +5,8 @@ import Button from './../button';
 import {render, cleanup} from '@testing-library/react';
 import "@testing-library/jest-dom";
 
-import renderer from 'react-test-renderer';
+import renderer from "react-test-renderer";
+
 // afterEach(cleanup);
 
 it("renders with out crashing", ()=>{
@@ -16,5 +17,12 @@ it("renders with out crashing", ()=>{
 it("renders button correctly", ()=>{
     const {getByTestId} =render(<Button label="click me please"></Button>)
     expect(getByTestId('button')).toHaveTextContent("click me please")
+})
+
+//snapshot testing
+it("matches snapshot", ()=>{
+    //once dom is created then converting dom to json
+    const tree = renderer.create(<Button label="save"></Button>).toJSON();
+    expect(tree).toMatchSnapshot();
 })
 
